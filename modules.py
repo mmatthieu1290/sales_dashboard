@@ -28,35 +28,56 @@ def first_page():
    top_families = sales_by_family.head(15)
    st.bar_chart(data=top_families, x="family", y="sales")
 
-def first_questions(por_tiendas,por_tipo_de_productos,df):
+def first_questions(por_ciudad,por_tiendas,por_tipo_de_productos,df):
 
     responses = {}
 
-    if por_tiendas and por_tipo_de_productos == False:
-      opt = [f"Tienda {tienda}" for tienda in df.sort_values("store_nbr").store_nbr.astype(str).unique()]
-      options_tiendas = st.multiselect(
+    if por_ciudad:
+       
+       if por_tipo_de_productos:
+          opt = df[["city","family"]].value_counts().to_frame().reset_index()[["city","family"]].sort_values(["city","family"]).values
+          opt = [(f"{elt[0]}",elt[1]) for elt in opt]
+          options_ciudad_productos = st.multiselect(
+       "Qué ciudad y productos quieres analizar",
+        default=[],
+        options=opt
+        )    
+          responses.update({"ciudades_productos":options_ciudad_productos})
+       else:
+           options_ciudad = st.multiselect(
+       "Qué ciudades quieres analizar?",
+        default=[],
+        options=list(df.sort_values("city").city.unique())
+        )  
+           responses.update({"ciudades":options_ciudad})                        
+
+
+    else:
+       if por_tiendas and por_tipo_de_productos == False:
+          opt = [f"Tienda {tienda_city}" for tienda_city in df.sort_values("store_nbr").store_nbr_city.astype(str).unique()]
+          options_tiendas = st.multiselect(
        "Qué tiendas quieres analizar",
         default=[],
         options=opt
         )
-      responses.update({"tiendas":options_tiendas}) 
+          responses.update({"tiendas":options_tiendas}) 
 
-    if por_tipo_de_productos and por_tiendas == False:
-      options_productos = st.multiselect(
-       "Qué tipo de productos quieres analizar",
-        default=[],
-        options=list(df.sort_values("family").family.unique())
-        )  
-      responses.update({"productos":options_productos})     
-    if por_tiendas and por_tipo_de_productos:
-      opt = df[["store_nbr","family"]].value_counts().to_frame().reset_index()[["store_nbr","family"]].sort_values(["store_nbr","family"]).values
-      opt = [(f"Tienda {elt[0]}",elt[1]) for elt in opt]
-      options_tiendas_productos = st.multiselect(
-       "Qué tiendas y productos quieres analizar",
-        default=[],
-        options=opt
-        )    
-      responses.update({"tiendas_productos":options_tiendas_productos})
+       if por_tipo_de_productos and por_tiendas == False:
+          options_productos = st.multiselect(
+          "Qué tipo de productos quieres analizar",
+           default=[],
+           options=list(df.sort_values("family").family.unique())
+           )  
+          responses.update({"productos":options_productos})     
+       if por_tiendas and por_tipo_de_productos:
+          opt = df[["store_nbr","family"]].value_counts().to_frame().reset_index()[["store_nbr","family"]].sort_values(["store_nbr","family"]).values
+          opt = [(f"Tienda {elt[0]}",elt[1]) for elt in opt]
+          options_tiendas_productos = st.multiselect(
+          "Qué tiendas y productos quieres analizar",
+           default=[],
+           options=opt
+           )    
+          responses.update({"tiendas_productos":options_tiendas_productos})
 
     return responses
 

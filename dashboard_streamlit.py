@@ -4,12 +4,14 @@ from modules import first_questions,first_page
 from modules_anuales import graph_years
 from modules_mensuales import graph_monthly,graph_monthly_by_year
 from modules_diarias import graph_daily,graph_daily_by_year,graph_daily_by_month,graph_daily_by_month_and_year
+from KPIs import KPIs
+from time_series import TimeSeries
 
 st.title("Dashboard de Ventas")
 
 choice = st.sidebar.selectbox("Qué quieres ver?",\
     ["Informaciones globales","Ventas anuales","Ventas mensuales"\
-        ,"Ventas diarias"])
+        ,"Ventas diarias","KPIs","Prediccion"])
 
 conversion = {"Ventas anuales": "anuales",
                 "Ventas mensuales": "mensuales",
@@ -24,11 +26,12 @@ if choice == "Ventas anuales":
    st.header("Ventas anuales")
 
    periode = conversion[choice]
-   por_tiendas = st.checkbox(f"Quieres analizar las ventas {periode} por tiendas?")
+   por_ciudad = st.checkbox(f"Quieres analizar las ventas {periode} por ciudad?")
+   por_tiendas = st.checkbox(f"Quieres analizar las ventas {periode} por tienda?")
    por_tipo_de_productos = st.checkbox(f"Quieres analizar las ventas {periode} por tipo de productos?")
 
    df = pd.read_csv("df_by_year_and_store.csv")
-   responses = first_questions(por_tiendas,por_tipo_de_productos,df)
+   responses = first_questions(por_ciudad,por_tiendas,por_tipo_de_productos,df)
 
    graph_years(responses,df)
 
@@ -36,11 +39,13 @@ if choice == "Ventas anuales":
 if choice == "Ventas mensuales": 
 
    st.header("Ventas mensuales")
+   periode = conversion[choice]
    df = pd.read_csv("df_by_year_month_and_store.csv")
+   por_ciudad = st.checkbox(f"Quieres analizar las ventas {periode} por ciudad?")
    por_tiendas = st.checkbox("Quieres analizar las ventas mensuales por tiendas?")
    por_tipo_de_productos = st.checkbox("Quieres analizar las ventas mensuales por tipo de productos?")
 
-   responses = first_questions(por_tiendas,por_tipo_de_productos,df)   
+   responses = first_questions(por_ciudad,por_tiendas,por_tipo_de_productos,df)   
 
 
    years = df.sort_values('year')['year'].unique()
@@ -62,11 +67,13 @@ if choice == "Ventas diarias":
 
    st.header("Ventas diarias") 
 
+   periode = conversion[choice]
    df = pd.read_csv("df_by_year_month_day_and_store.csv")
+   por_ciudad = st.checkbox(f"Quieres analizar las ventas {periode} por ciudad?")
    por_tiendas = st.checkbox("Quieres analizar las ventas diarias por tiendas?")
    por_tipo_de_productos = st.checkbox("Quieres analizar las ventas diarias por tipo de productos?")   
 
-   responses = first_questions(por_tiendas,por_tipo_de_productos,df) 
+   responses = first_questions(por_ciudad,por_tiendas,por_tipo_de_productos,df) 
 
    years = df.sort_values('year')['year'].unique()
    months = df.sort_values('month')['month'].unique()
@@ -101,4 +108,14 @@ if choice == "Ventas diarias":
    elif promedios_anios:
       graph_daily_by_month(responses,df_months_years)
    else:
-      graph_daily_by_month_and_year(responses,df_months_years)         
+      graph_daily_by_month_and_year(responses,df_months_years)
+
+if choice == "KPIs":
+
+   df = pd.read_csv("df_by_year_month_day_and_store.csv")
+
+   KPIs()
+
+if choice == "Prediccion":
+
+   TimeSeries()                 
