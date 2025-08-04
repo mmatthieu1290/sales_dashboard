@@ -298,7 +298,6 @@ def graph_monthly_by_year(responses,df):
    
    
    if por_ciudades:
-      print(df_toexcel.columns.tolist())
       if por_tipo_de_productos == False:
          df_toexcel = df_toexcel[["ciudad","año","month","sales"]].sort_values(["ciudad","año","month"])
          df_toexcel["month"] = df_toexcel["month"].replace(dict_month)

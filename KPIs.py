@@ -10,8 +10,7 @@ def KPIs():
     df = pd.read_csv("sales_by_date.csv", parse_dates=["date"])
 
     KPI_choice = st.selectbox("Qué KPI quieres ver?",\
-    ["Crecimiento anual de ventas","Crecimiento mensual de ventas","Crecimiento anual mes a mes",\
-     "Predicciones a futuro"])
+    ["Crecimiento anual de ventas","Crecimiento mensual de ventas","Crecimiento anual mes a mes"])
 
     min_date = df.date.min()
     max_date = df.date.max()
