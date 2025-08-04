@@ -1,23 +1,39 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
-from toExcel import downloadExcel
+import plotly.graph_objects as go
+
 
 def first_page():
     
     # Cargar datos
-   sales_by_date = pd.read_csv("sales_by_date.csv", parse_dates=["date"])
+   sales_by_date = pd.read_csv("sales_by_date.csv", parse_dates=["date"],
+                               infer_datetime_format=True)
+   sales_by_date['date'] = sales_by_date.date.dt.to_period('D')
+   sales_by_date = sales_by_date.sort_values("date")
    sales_by_store = pd.read_csv("sales_by_store.csv")
    sales_by_family = pd.read_csv("sales_by_family.csv")
 
    # Sección 1: Evolución de ventas en el tiempo
    st.header("Evolución de ventas en el tiempo")
-   fig, ax = plt.subplots()
-   ax.plot(sales_by_date["date"], sales_by_date["sales"], label="Ventas diarias")
-   ax.set_xlabel("Fecha")
-   ax.set_ylabel("Ventas")
-   ax.set_title("Ventas totales por día")
-   st.pyplot(fig)
+   # fig, ax = plt.subplots()
+   # ax.plot(sales_by_date["date"], sales_by_date["sales"], label="Ventas diarias")
+   # ax.set_xlabel("Fecha")
+   # ax.set_ylabel("Ventas")
+   # ax.set_title("Ventas totales por día")
+   # st.pyplot(fig)
+
+   fig = go.Figure()
+   fig.add_trace(go.Scatter(x=sales_by_date["date"].astype(str),y = sales_by_date["sales"],
+                            mode = "lines+markers",marker=dict(size=8)))
+   fig.update_layout(
+      title=dict(
+        text="Ventas totales por día"
+    ) ,
+      xaxis_title="Fecha",
+      yaxis_title="Ventas")    
+
+   st.plotly_chart(fig, config = {'scrollZoom': False}) 
 
    # Sección 2: Ventas por tienda
    st.header("Ventas por tienda")
