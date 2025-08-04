@@ -5,3 +5,4 @@ matplotlib
 xlsxwriter
 plotly
 statsmodels
+scikit-learn
