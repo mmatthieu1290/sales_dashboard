@@ -5,13 +5,13 @@ from modules_anuales import graph_years
 from modules_mensuales import graph_monthly,graph_monthly_by_year
 from modules_diarias import graph_daily,graph_daily_by_year,graph_daily_by_month,graph_daily_by_month_and_year
 from KPIs import KPIs
-from time_series import TimeSeries
+from time_series import TimeSeriesTiendas,TimeSeriesProductos
 
 st.title("Dashboard de Ventas")
 
 choice = st.sidebar.selectbox("Qué quieres ver?",\
     ["Informaciones globales","Ventas anuales","Ventas mensuales"\
-        ,"Ventas diarias","KPIs","Prediccion"])
+        ,"Ventas diarias","KPIs","Predicciones por tienda","Predicciones por producto"])
 
 conversion = {"Ventas anuales": "anuales",
                 "Ventas mensuales": "mensuales",
@@ -112,10 +112,20 @@ if choice == "Ventas diarias":
 
 if choice == "KPIs":
 
+   st.header("KPIs") 
+
    df = pd.read_csv("df_by_year_month_day_and_store.csv")
 
    KPIs()
 
-if choice == "Prediccion":
+if choice == "Predicciones por tienda":
 
-   TimeSeries()                 
+   st.header("Predicciones por tienda") 
+
+   TimeSeriesTiendas()         
+
+if choice == "Predicciones por producto":
+
+   st.header("Predicciones por producto") 
+
+   TimeSeriesProductos()               
