@@ -2,17 +2,25 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
 import plotly.graph_objects as go
+from datetime import datetime
 
 
-def first_page():
+def first_page(connexion):
     
     # Cargar datos
-   sales_by_date = pd.read_csv("sales_by_date.csv", parse_dates=["date"],
-                               infer_datetime_format=True)
+   #sales_by_date = pd.read_csv("sales_by_date.csv", parse_dates=["date"],
+   #                            infer_datetime_format=True)
+   sales_by_date = pd.read_sql_query('select * from sales_by_date' \
+    , con = connexion)
+   sales_by_date['date'] = sales_by_date['date'].apply(lambda x : datetime.strptime(x , "%Y-%m-%d"))
    sales_by_date['date'] = sales_by_date.date.dt.to_period('D')
    sales_by_date = sales_by_date.sort_values("date")
-   sales_by_store = pd.read_csv("sales_by_store.csv")
-   sales_by_family = pd.read_csv("sales_by_family.csv")
+#   sales_by_store = pd.read_csv("sales_by_store.csv")
+   sales_by_store = pd.read_sql_query('select * from sales_by_store' \
+    , con = connexion)
+#   sales_by_family = pd.read_csv("sales_by_family.csv")
+   sales_by_family = pd.read_sql_query('select * from sales_by_family' \
+    , con = connexion)   
 
    # Sección 1: Evolución de ventas en el tiempo
    st.header("Evolución de ventas en el tiempo")

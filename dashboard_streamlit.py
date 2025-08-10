@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import sqlite3
 from modules import first_questions,first_page
 from modules_anuales import graph_years
 from modules_mensuales import graph_monthly,graph_monthly_by_year
@@ -17,11 +18,17 @@ conversion = {"Ventas anuales": "anuales",
                 "Ventas mensuales": "mensuales",
                 "Ventas diarias": "diarias"}
 
+connexion = sqlite3.connect('db.db')
+connexion.commit()
+
+
 if choice == "Informaciones globales":
 
-   first_page()
+   first_page(connexion)
 
 if choice == "Ventas anuales": 
+
+
 
    st.header("Ventas anuales")
 
@@ -30,7 +37,9 @@ if choice == "Ventas anuales":
    por_tiendas = st.checkbox(f"Quieres analizar las ventas {periode} por tienda?")
    por_tipo_de_productos = st.checkbox(f"Quieres analizar las ventas {periode} por tipo de productos?")
 
-   df = pd.read_csv("df_by_year_and_store.csv")
+#   df = pd.read_csv("df_by_year_and_store.csv")
+   df = pd.read_sql_query('select * from df_by_year_and_store' \
+    , con = connexion)
    responses = first_questions(por_ciudad,por_tiendas,por_tipo_de_productos,df)
 
    graph_years(responses,df)
@@ -40,7 +49,8 @@ if choice == "Ventas mensuales":
 
    st.header("Ventas mensuales")
    periode = conversion[choice]
-   df = pd.read_csv("df_by_year_month_and_store.csv")
+   df = pd.read_sql_query('select * from df_by_year_month_and_store' \
+    , con = connexion)   
    por_ciudad = st.checkbox(f"Quieres analizar las ventas {periode} por ciudad?")
    por_tiendas = st.checkbox("Quieres analizar las ventas mensuales por tiendas?")
    por_tipo_de_productos = st.checkbox("Quieres analizar las ventas mensuales por tipo de productos?")
@@ -68,7 +78,8 @@ if choice == "Ventas diarias":
    st.header("Ventas diarias") 
 
    periode = conversion[choice]
-   df = pd.read_csv("df_by_year_month_day_and_store.csv")
+   df = pd.read_sql_query('select * from df_by_year_month_day_and_store' \
+    , con = connexion) 
    por_ciudad = st.checkbox(f"Quieres analizar las ventas {periode} por ciudad?")
    por_tiendas = st.checkbox("Quieres analizar las ventas diarias por tiendas?")
    por_tipo_de_productos = st.checkbox("Quieres analizar las ventas diarias por tipo de productos?")   
@@ -114,24 +125,25 @@ if choice == "KPIs":
 
    st.header("KPIs") 
 
-   df = pd.read_csv("df_by_year_month_day_and_store.csv")
+   df = pd.read_sql_query('select * from df_by_year_month_day_and_store' \
+    , con = connexion) 
 
-   KPIs()
+   KPIs(connexion)
 
 if choice == "Predicciones por tienda":
 
    st.header("Predicciones por tienda") 
 
-   TimeSeriesTiendas()         
+   TimeSeriesTiendas(connexion)         
 
 if choice == "Predicciones por producto":
 
    st.header("Predicciones por producto") 
 
-   TimeSeriesProductos() 
+   TimeSeriesProductos(connexion) 
 
 if choice == "Predicciones por ciudad": 
 
    st.header("Predicciones por ciudad") 
 
-   TimeSeriesCiudades()               
+   TimeSeriesCiudades(connexion)               

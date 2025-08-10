@@ -3,11 +3,16 @@ from datetime import date
 import pandas as pd
 from dateutil.relativedelta import relativedelta
 import plotly.express as px
+from datetime import datetime
 
 
-def KPIs():
+def KPIs(connexion):
 
-    df = pd.read_csv("sales_by_date.csv", parse_dates=["date"])
+
+    df = pd.read_sql_query('select * from sales_by_date' \
+    , con = connexion)
+    df['date'] = df['date'].apply(lambda x : datetime.strptime(x , "%Y-%m-%d"))
+
 
     KPI_choice = st.selectbox("Qué KPI quieres ver?",\
     ["Crecimiento anual de ventas","Crecimiento mensual de ventas","Crecimiento anual mes a mes"])
