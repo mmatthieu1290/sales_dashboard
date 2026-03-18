@@ -31,7 +31,7 @@ def graph_years(responses,df):
        options_tiendas = responses["tiendas"]
        numeros_tiendas = [int(store.split(" ")[1]) for store in options_tiendas]
        numeros_tiendas.sort()
-       options_tiendas = ["Tienda" + " " + str(numero_tienda) for numero_tienda in numeros_tiendas]
+       options_tiendas = ["Store" + " " + str(numero_tienda) for numero_tienda in numeros_tiendas]
    elif "productos" in responses:
        por_tipo_de_productos = True 
        options_productos = responses["productos"]
@@ -42,7 +42,7 @@ def graph_years(responses,df):
        options_tiendas_productos = responses["tiendas_productos"]
        options_tiendas_productos_num = [(int(elt[0].split(" ")[1]),elt[1]) for elt in options_tiendas_productos]
        options_tiendas_productos_num.sort()
-       options_tiendas_productos = [("Tienda " + str(elt[0]),elt[1]) for elt in options_tiendas_productos_num]
+       options_tiendas_productos = [("Store " + str(elt[0]),elt[1]) for elt in options_tiendas_productos_num]
 
 
    if por_ciudades:
