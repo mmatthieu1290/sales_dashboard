@@ -14,9 +14,9 @@ choice = st.sidebar.selectbox("Qué quieres ver?",\
     ["Global information", "Annual sales", "Monthly sales"\
         ,"Daily Sales", "KPIs", "Predictions by Store", "Predictions by Product", "Predictions by City"])
 
-conversion = {"Annual sales": "anuales",
-                "Monthly sales": "mensuales",
-                "Daily Sales": "diarias"}
+conversion = {"Annual sales": "yearly",
+                "Monthly sales": "monthly",
+                "Daily Sales": "daily"}
 
 connexion = sqlite3.connect('db.db')
 connexion.commit()
@@ -33,9 +33,9 @@ if choice == "Annual sales":
    st.header("Annual sales")
 
    periode = conversion[choice]
-   por_ciudad = st.checkbox(f"Quieres analizar las ventas {periode} por ciudad?")
-   por_tiendas = st.checkbox(f"Quieres analizar las ventas {periode} por tienda?")
-   por_tipo_de_productos = st.checkbox(f"Quieres analizar las ventas {periode} por tipo de productos?")
+   por_ciudad = st.checkbox(f"Do you want to analyze {periode} sales by city?")
+   por_tiendas = st.checkbox(f"Do you want to analyze {periode} sales by store?")
+   por_tipo_de_productos = st.checkbox(f"Do you want to analyze {periode} sales by product type?")
 
 #   df = pd.read_csv("df_by_year_and_store.csv")
    df = pd.read_sql_query('select * from df_by_year_and_store' \
@@ -51,9 +51,9 @@ if choice == "Monthly sales":
    periode = conversion[choice]
    df = pd.read_sql_query('select * from df_by_year_month_and_store' \
     , con = connexion)   
-   por_ciudad = st.checkbox(f"Quieres analizar las ventas {periode} por ciudad?")
-   por_tiendas = st.checkbox("Quieres analizar las ventas mensuales por tiendas?")
-   por_tipo_de_productos = st.checkbox("Quieres analizar las ventas mensuales por tipo de productos?")
+   por_ciudad = st.checkbox(f"Do you want to analyze {periode} sales by city?")
+   por_tiendas = st.checkbox(f"Do you want to analyze {periode} sales by store?")
+   por_tipo_de_productos = st.checkbox(f"Do you want to analyze {periode} sales by product type?")
 
    responses = first_questions(por_ciudad,por_tiendas,por_tipo_de_productos,df)   
 
@@ -80,9 +80,9 @@ if choice == "Daily Sales":
    periode = conversion[choice]
    df = pd.read_sql_query('select * from df_by_year_month_day_and_store' \
     , con = connexion) 
-   por_ciudad = st.checkbox(f"Quieres analizar las ventas {periode} por ciudad?")
-   por_tiendas = st.checkbox("Quieres analizar las ventas diarias por tiendas?")
-   por_tipo_de_productos = st.checkbox("Quieres analizar las ventas diarias por tipo de productos?")   
+   por_ciudad = st.checkbox(f"Do you want to analyze {periode} sales by city?")
+   por_tiendas = st.checkbox(f"Do you want to analyze {periode} sales by store?")
+   por_tipo_de_productos = st.checkbox(f"Do you want to analyze {periode} sales by product type?")  
 
    responses = first_questions(por_ciudad,por_tiendas,por_tipo_de_productos,df) 
 
