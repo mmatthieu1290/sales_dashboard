@@ -14,9 +14,9 @@ choice = st.sidebar.selectbox("Qué quieres ver?",\
     ["Global information", "Annual sales", "Monthly sales"\
         ,"Daily Sales", "KPIs", "Predictions by Store", "Predictions by Product", "Predictions by City"])
 
-conversion = {"Ventas anuales": "anuales",
-                "Ventas mensuales": "mensuales",
-                "Ventas diarias": "diarias"}
+conversion = {"Annual sales": "anuales",
+                "Monthly sales": "mensuales",
+                "Daily Sales": "diarias"}
 
 connexion = sqlite3.connect('db.db')
 connexion.commit()
