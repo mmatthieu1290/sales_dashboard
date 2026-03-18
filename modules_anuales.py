@@ -77,9 +77,9 @@ def graph_years(responses,df):
          df_toexcel = df_toexcel.sort_values(["ciudad","producto","year"])
          downloadExcel(df_toexcel.rename(columns = {"sales":"ventas","year":"año"}),"resultados_por_año_ciudad_producto.xlsx")                                         
 
-      fig.update_xaxes(title_text = "año",title_font = {"size": 20},
+      fig.update_xaxes(title_text = "year",title_font = {"size": 20},
         title_standoff = 25,ticktext=years,tickvals=years,)
-      fig.update_yaxes(title_text = "ventas",title_font = {"size": 20},
+      fig.update_yaxes(title_text = "sells",title_font = {"size": 20},
         title_standoff = 25)
       st.plotly_chart(fig, config = {'scrollZoom': False}) 
 
@@ -134,9 +134,9 @@ def graph_years(responses,df):
          df_toexcel = df_toexcel[["tienda",'producto','year','sales']]
          df_toexcel = df_toexcel.sort_values(["tienda","producto","year"])
          downloadExcel(df_toexcel.rename(columns = {"sales":"ventas","year":"año"}),"resultados_por_año_tienda_producto.xlsx")       
-      fig.update_xaxes(title_text = "año",title_font = {"size": 20},
+      fig.update_xaxes(title_text = "year",title_font = {"size": 20},
         title_standoff = 25,ticktext=years,tickvals=years,)
-      fig.update_yaxes(title_text = "ventas",title_font = {"size": 20},
+      fig.update_yaxes(title_text = "sells",title_font = {"size": 20},
         title_standoff = 25)
       st.plotly_chart(fig, config = {'scrollZoom': False})   
 
