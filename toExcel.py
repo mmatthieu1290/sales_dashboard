@@ -13,6 +13,6 @@ def downloadExcel(df,nombre_archivo):
       worksheet.set_column('A:A', None, format1)  
       writer.close()
       processed_data = output.getvalue()
-      st.download_button(label='📥 Descargar los resultados',
+      st.download_button(label='📥 Download the results',
                                 data=processed_data ,
                                 file_name= nombre_archivo)
