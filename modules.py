@@ -78,7 +78,7 @@ def first_questions(por_ciudad,por_tiendas,por_tipo_de_productos,df):
 
     else:
        if por_tiendas and por_tipo_de_productos == False:
-          opt = [f"Tienda {tienda_city}" for tienda_city in df.sort_values("store_nbr").store_nbr_city.astype(str).unique()]
+          opt = [f"Store {tienda_city}" for tienda_city in df.sort_values("store_nbr").store_nbr_city.astype(str).unique()]
           options_tiendas = st.multiselect(
        "Which stores do you want to analyze?",
         default=[],
