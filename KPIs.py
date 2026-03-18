@@ -14,16 +14,16 @@ def KPIs(connexion):
     df['date'] = df['date'].apply(lambda x : datetime.strptime(x , "%Y-%m-%d"))
 
 
-    KPI_choice = st.selectbox("Qué KPI quieres ver?",\
-    ["Crecimiento anual de ventas","Crecimiento mensual de ventas","Crecimiento anual mes a mes"])
+    KPI_choice = st.selectbox("Which KPI do you want to see?",\
+    ["Annual sales growth","Monthly sales growth","Month-over-month annual growth"])
 
     min_date = df.date.min()
     max_date = df.date.max()
 
-    if KPI_choice == "Crecimiento mensual de ventas":
+    if KPI_choice == "Monthly sales growth":
 
-       mes_inicial = st.date_input("Indique la fecha inicial",value=min_date,min_value = min_date, max_value =max_date)
-       mes_final = st.date_input("Indique la fecha final",value=max_date,min_value = min_date, max_value =max_date)
+       mes_inicial = st.date_input("Please indicate the start date",value=min_date,min_value = min_date, max_value =max_date)
+       mes_final = st.date_input("Please indicate the final date",value=max_date,min_value = min_date, max_value =max_date)
 
        mes_inicial = date(mes_inicial.year,mes_inicial.month,1)
        mes_final = date(mes_final.year,mes_final.month,1)+ relativedelta(months=1) - relativedelta(days = 1)
@@ -45,7 +45,7 @@ def KPIs(connexion):
        st.header("Varacion mensual")
        st.plotly_chart(fig, config = {'scrollZoom': False})
 
-    if KPI_choice == "Crecimiento anual mes a mes":
+    if KPI_choice == "Month-over-month annual growth":
 
        mes_inicial = st.date_input("Indique la fecha inicial",value=min_date,min_value = min_date, max_value =max_date)
        mes_final = st.date_input("Indique la fecha final",value=max_date,min_value = min_date, max_value =max_date)
@@ -70,7 +70,7 @@ def KPIs(connexion):
        st.header("Varacion anual: variacion relativa de cada mes con respecto al mismo mes del año anterior")
        st.plotly_chart(fig, config = {'scrollZoom': False})
 
-    if KPI_choice == "Crecimiento anual de ventas":
+    if KPI_choice == "Annual sales growth":
 
        ano_inicial = st.date_input("Indique la fecha inicial",value=min_date,min_value = min_date, max_value =max_date)
        ano_final = st.date_input("Indique la fecha final",value=max_date,min_value = min_date, max_value =max_date)

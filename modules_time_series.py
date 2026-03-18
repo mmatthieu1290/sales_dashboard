@@ -3,7 +3,7 @@ import streamlit as st
 from datetime import timedelta
 import plotly.graph_objects as go
 from statsmodels.tsa.deterministic import CalendarFourier, DeterministicProcess
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression,HuberRegressor
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 

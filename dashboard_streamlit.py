@@ -11,8 +11,8 @@ from time_series import TimeSeriesTiendas,TimeSeriesProductos,TimeSeriesCiudades
 st.title("Dashboard de Ventas")
 
 choice = st.sidebar.selectbox("Qué quieres ver?",\
-    ["Informaciones globales","Ventas anuales","Ventas mensuales"\
-        ,"Ventas diarias","KPIs","Predicciones por tienda","Predicciones por producto","Predicciones por ciudad"])
+    ["Global information", "Annual sales", "Monthly sales"\
+        ,"Daily Sales", "KPIs", "Predictions by Store", "Predictions by Product", "Predictions by City"])
 
 conversion = {"Ventas anuales": "anuales",
                 "Ventas mensuales": "mensuales",
@@ -22,15 +22,15 @@ connexion = sqlite3.connect('db.db')
 connexion.commit()
 
 
-if choice == "Informaciones globales":
+if choice == "Global information":
 
    first_page(connexion)
 
-if choice == "Ventas anuales": 
+if choice == "Annual sales": 
 
 
 
-   st.header("Ventas anuales")
+   st.header("Annual sales")
 
    periode = conversion[choice]
    por_ciudad = st.checkbox(f"Quieres analizar las ventas {periode} por ciudad?")
@@ -45,9 +45,9 @@ if choice == "Ventas anuales":
    graph_years(responses,df)
 
    
-if choice == "Ventas mensuales": 
+if choice == "Monthly sales": 
 
-   st.header("Ventas mensuales")
+   st.header("Monthly sales")
    periode = conversion[choice]
    df = pd.read_sql_query('select * from df_by_year_month_and_store' \
     , con = connexion)   
@@ -73,9 +73,9 @@ if choice == "Ventas mensuales":
       graph_monthly(responses,df_years)
    else:
       graph_monthly_by_year(responses,df_years)             
-if choice == "Ventas diarias": 
+if choice == "Daily Sales": 
 
-   st.header("Ventas diarias") 
+   st.header("Daily Sales") 
 
    periode = conversion[choice]
    df = pd.read_sql_query('select * from df_by_year_month_day_and_store' \
@@ -130,20 +130,20 @@ if choice == "KPIs":
 
    KPIs(connexion)
 
-if choice == "Predicciones por tienda":
+if choice == "Predictions by Store":
 
-   st.header("Predicciones por tienda") 
+   st.header("Predictions by Store") 
 
    TimeSeriesTiendas(connexion)         
 
-if choice == "Predicciones por producto":
+if choice == "Predictions by Product":
 
-   st.header("Predicciones por producto") 
+   st.header("Predictions by Product") 
 
    TimeSeriesProductos(connexion) 
 
-if choice == "Predicciones por ciudad": 
+if choice == "Predictions by City": 
 
-   st.header("Predicciones por ciudad") 
+   st.header("Predictions by City") 
 
    TimeSeriesCiudades(connexion)               
