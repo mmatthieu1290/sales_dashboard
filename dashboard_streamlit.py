@@ -61,12 +61,12 @@ if choice == "Monthly sales":
    years = df.sort_values('year')['year'].unique()
 
    options_anios = st.multiselect(
-       "De qué anos quieres analizar las ventas mensuales",
+       "For which years do you want to analyze monthly sales?",
         default=years,
         options=years
         )
    
-   promedios = st.checkbox("Mostrar las ventas promedias de los anos seleccionados.",value=True)
+   promedios = st.checkbox("Show average sales for selected years.",value=True)
 
    df_years = pd.concat([df[df.year == year] for year in options_anios])
    if promedios:
@@ -90,20 +90,20 @@ if choice == "Daily Sales":
    months = df.sort_values('month')['month'].unique()
 
    options_anios = st.multiselect(
-       "De qué anos quieres analizar las ventas diarias",
+       "For which years do you want to analyze daily sales?",
         default=years,
         options=years
         )
    
-   promedios_anios = st.checkbox("Mostrar las ventas promedias de los anios seleccionados.",value=True)
+   promedios_anios = st.checkbox("Show average sales for the selected years.",value=True)
 
    options_meses = st.multiselect(
-       "De qué meses quieres analizar las ventas diarias",
+       "For which months do you want to analyze daily sales?",
         default=months,
         options=months
         )
    
-   promedios_meses = st.checkbox("Mostrar las ventas promedias de los meses seleccionados.",value=True)  
+   promedios_meses = st.checkbox("Show average sales for selected months.",value=True)  
 
    options_anios_meses = []
    for year in options_anios:
