@@ -95,7 +95,7 @@ def first_questions(por_ciudad,por_tiendas,por_tipo_de_productos,df):
           responses.update({"productos":options_productos})     
        if por_tiendas and por_tipo_de_productos:
           opt = df[["store_nbr","family"]].value_counts().to_frame().reset_index()[["store_nbr","family"]].sort_values(["store_nbr","family"]).values
-          opt = [(f"Tienda {elt[0]}",elt[1]) for elt in opt]
+          opt = [(f"Store {elt[0]}",elt[1]) for elt in opt]
           options_tiendas_productos = st.multiselect(
           "Which stores and products do you want to analyze?",
            default=[],
