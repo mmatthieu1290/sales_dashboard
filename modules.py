@@ -23,7 +23,7 @@ def first_page(connexion):
     , con = connexion)   
 
    # Sección 1: Evolución de ventas en el tiempo
-   st.header("Evolución de ventas en el tiempo")
+   st.header("Sales evolution over time")
    # fig, ax = plt.subplots()
    # ax.plot(sales_by_date["date"], sales_by_date["sales"], label="Ventas diarias")
    # ax.set_xlabel("Fecha")
@@ -36,19 +36,19 @@ def first_page(connexion):
                             mode = "lines+markers",marker=dict(size=8)))
    fig.update_layout(
       title=dict(
-        text="Ventas totales por día"
+        text="Total sales per day"
     ) ,
-      xaxis_title="Fecha",
-      yaxis_title="Ventas")    
+      xaxis_title="Date",
+      yaxis_title="Sales")    
 
    st.plotly_chart(fig, config = {'scrollZoom': False}) 
 
    # Sección 2: Ventas por tienda
-   st.header("Ventas por tienda")
+   st.header("Sales per store")
    st.bar_chart(data=sales_by_store, x="store_nbr", y="sales")
 
    # Sección 3: Ventas por familia de productos
-   st.header("Ventas por familia de productos")
+   st.header("Sales by product family")
    top_families = sales_by_family.head(15)
    st.bar_chart(data=top_families, x="family", y="sales")
 
@@ -62,14 +62,14 @@ def first_questions(por_ciudad,por_tiendas,por_tipo_de_productos,df):
           opt = df[["city","family"]].value_counts().to_frame().reset_index()[["city","family"]].sort_values(["city","family"]).values
           opt = [(f"{elt[0]}",elt[1]) for elt in opt]
           options_ciudad_productos = st.multiselect(
-       "Qué ciudad y productos quieres analizar",
+       "Which city and products do you want to analyze?",
         default=[],
         options=opt
         )    
           responses.update({"ciudades_productos":options_ciudad_productos})
        else:
            options_ciudad = st.multiselect(
-       "Qué ciudades quieres analizar?",
+       "Which cities do you want to analyze?",
         default=[],
         options=list(df.sort_values("city").city.unique())
         )  
@@ -80,7 +80,7 @@ def first_questions(por_ciudad,por_tiendas,por_tipo_de_productos,df):
        if por_tiendas and por_tipo_de_productos == False:
           opt = [f"Tienda {tienda_city}" for tienda_city in df.sort_values("store_nbr").store_nbr_city.astype(str).unique()]
           options_tiendas = st.multiselect(
-       "Qué tiendas quieres analizar",
+       "Which stores do you want to analyze?",
         default=[],
         options=opt
         )
@@ -88,7 +88,7 @@ def first_questions(por_ciudad,por_tiendas,por_tipo_de_productos,df):
 
        if por_tipo_de_productos and por_tiendas == False:
           options_productos = st.multiselect(
-          "Qué tipo de productos quieres analizar",
+          "What type of products do you want to analyze?",
            default=[],
            options=list(df.sort_values("family").family.unique())
            )  
@@ -97,7 +97,7 @@ def first_questions(por_ciudad,por_tiendas,por_tipo_de_productos,df):
           opt = df[["store_nbr","family"]].value_counts().to_frame().reset_index()[["store_nbr","family"]].sort_values(["store_nbr","family"]).values
           opt = [(f"Tienda {elt[0]}",elt[1]) for elt in opt]
           options_tiendas_productos = st.multiselect(
-          "Qué tiendas y productos quieres analizar",
+          "Which stores and products do you want to analyze?",
            default=[],
            options=opt
            )    
