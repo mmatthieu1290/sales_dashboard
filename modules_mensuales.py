@@ -318,13 +318,13 @@ def graph_monthly_by_year(responses,df):
          df_toexcel = df_toexcel[["año","month","sales"]].sort_values(["año","month"])
          df_toexcel["month"] = df_toexcel["month"].replace(dict_month)
          df_toexcel["año"] = df_toexcel["año"].astype(int)
-         downloadExcel(df_toexcel.rename(columns = {"año":"year"}),"resultados_por_mes_año_producto.xlsx")
+         downloadExcel(df_toexcel.rename(columns = {"año":"year"}),"resultados_por_mes_año.xlsx")
       elif por_tipo_de_productos == False:
          df_toexcel = df_toexcel[["tienda","año","month","sales"]].sort_values(["tienda","año","month"])
          df_toexcel["month"] = df_toexcel["month"].replace(dict_month)
          df_toexcel["año"] = df_toexcel["año"].astype(int)
          downloadExcel(df_toexcel.rename(columns = {"tienda":"store","año":"year"}),\
-                       "resultados_por_tienda_mes_año_producto.xlsx")      
+                       "resultados_por_tienda_mes_año_tienda.xlsx")      
       elif por_tiendas == False:
          df_toexcel = df_toexcel[["producto","año","month","sales"]].sort_values(["producto","año","month"])
          df_toexcel["month"] = df_toexcel["month"].replace(dict_month)
