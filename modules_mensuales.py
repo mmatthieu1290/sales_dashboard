@@ -6,8 +6,8 @@ from toExcel import downloadExcel
 
 
 def graph_monthly(responses,df_years):
-   dict_month = {1:"Enero",2:"Febrero",3:"Marzo",4:"Abril",5:"Mayo",6:"Junio",7:"Julio",8:"Agosto",9:"Septiembre",
-                 10:"Octubre",11:"Noviembre",12:"Diciembre"}
+   dict_month = {1:"January",2:"February",3:"March",4:"April",5:"May",6:"June",7:"July",8:"August",9:"September",
+                 10:"October",11:"November",12:"December"}
    por_ciudades = False
    por_tiendas = False
    por_tipo_de_productos = False
@@ -32,7 +32,7 @@ def graph_monthly(responses,df_years):
        options_tiendas = responses["tiendas"]
        numeros_tiendas = [int(store.split(" ")[1]) for store in options_tiendas]
        numeros_tiendas.sort()
-       options_tiendas = ["Tienda" + " " + str(numero_tienda) for numero_tienda in numeros_tiendas]       
+       options_tiendas = ["Store" + " " + str(numero_tienda) for numero_tienda in numeros_tiendas]       
    elif "productos" in responses:
        por_tipo_de_productos = True 
        options_productos = responses["productos"]
@@ -43,7 +43,7 @@ def graph_monthly(responses,df_years):
        options_tiendas_productos = responses["tiendas_productos"]
        options_tiendas_productos_num = [(int(elt[0].split(" ")[1]),elt[1]) for elt in options_tiendas_productos]
        options_tiendas_productos_num.sort()
-       options_tiendas_productos = [("Tienda " + str(elt[0]),elt[1]) for elt in options_tiendas_productos_num]
+       options_tiendas_productos = [("Store " + str(elt[0]),elt[1]) for elt in options_tiendas_productos_num]
 
    if por_ciudades:
        

@@ -704,34 +704,37 @@ def graph_daily_by_month_and_year(responses,df):
          df_toexcel = df_toexcel[["ciudad","año","mes","day","sales"]].sort_values(["ciudad","año","mes","day"])
          df_toexcel["day"] = df_toexcel["day"].replace(dict_dias)
          df_toexcel["mes"] = df_toexcel["mes"].replace(dict_month)
-         downloadExcel(df_toexcel.rename(columns = {"sales":"ventas","day":"dia"}),"resultados_por_ciudad_dia_mes_año.xlsx")
+         downloadExcel(df_toexcel.rename(columns = {"ciudad":"city","año":"year","mes":"month"}),"resultados_por_ciudad_dia_mes_año.xlsx")
       else:
          df_toexcel = df_toexcel[["ciudad","producto","año","mes","day","sales"]].sort_values(["ciudad","producto","año","mes","day"])
          df_toexcel["day"] = df_toexcel["day"].replace(dict_dias)
          df_toexcel["mes"] = df_toexcel["mes"].replace(dict_month)
-         downloadExcel(df_toexcel.rename(columns = {"sales":"ventas","day":"dia"}),"resultados_por_ciudad_producto_dia_mes_año.xlsx")           
+         downloadExcel(df_toexcel.rename(columns = {"ciudad":"city","año":"year","mes":"month","producto":"product"}),\
+                       "resultados_por_ciudad_producto_dia_mes_año.xlsx")           
    else:
       if (por_tiendas == False) and (por_tipo_de_productos == False):
          df_toexcel = df_toexcel[["año","mes","day","sales"]].sort_values(["año","mes","day"])
          df_toexcel["day"] = df_toexcel["day"].replace(dict_dias)
          df_toexcel["mes"] = df_toexcel["mes"].replace(dict_month)
-         downloadExcel(df_toexcel.rename(columns = {"sales":"ventas","day":"dia"}),"resultados_por_dia_mes_año.xlsx")
+         downloadExcel(df_toexcel.rename(columns = {"año":"year","mes":"month"}),"resultados_por_dia_mes_año.xlsx")
       elif por_tipo_de_productos == False:
          df_toexcel = df_toexcel[["tienda","año","mes","day","sales"]].sort_values(["tienda","año","mes","day"])
          df_toexcel["day"] = df_toexcel["day"].replace(dict_dias)
          df_toexcel["mes"] = df_toexcel["mes"].replace(dict_month)
-         downloadExcel(df_toexcel.rename(columns = {"sales":"ventas","day":"dia"}),"resultados_por_tienda_dia_mes_año.xlsx")      
+         downloadExcel(df_toexcel.rename(columns = {"año":"year","mes":"month","tienda":"store"}),\
+                       "resultados_por_tienda_dia_mes_año.xlsx")      
       elif por_tiendas == False:
          df_toexcel = df_toexcel[["producto","año","mes","day","sales"]].sort_values(["producto","año","mes","day"])
          df_toexcel["day"] = df_toexcel["day"].replace(dict_dias)
          df_toexcel["mes"] = df_toexcel["mes"].replace(dict_month)
-         downloadExcel(df_toexcel.rename(columns = {"sales":"ventas","day":"dia"}),"resultados_por_producto_dia_mes_año.xlsx")    
+         downloadExcel(df_toexcel.rename(columns = {"año":"year","mes":"month","producto":"product"}),"resultados_por_producto_dia_mes_año.xlsx")    
       else:
          df_toexcel = df_toexcel[["tienda","producto","año","mes","day","sales"]].sort_values(["tienda","producto","año","mes","day"])
          df_toexcel["day"] = df_toexcel["day"].replace(dict_dias)
          df_toexcel["mes"] = df_toexcel["mes"].replace(dict_month)
-         downloadExcel(df_toexcel.rename(columns = {"sales":"ventas","day":"dia"}),"resultados_por_tienda_producto_dia_mes_año.xlsx")           
+         downloadExcel(df_toexcel.rename(columns = {"año":"year","mes":"month","producto":"product","tienda":"store"})\
+                       ,"resultados_por_tienda_producto_dia_mes_año.xlsx")           
                            
-   fig.update_xaxes(title_text = "dia",title_font = {"size": 20},title_standoff = 25,ticktext=days,tickvals=days,)
-   fig.update_yaxes(title_text = "ventas",title_font = {"size": 20},title_standoff = 25)
+   fig.update_xaxes(title_text = "day",title_font = {"size": 20},title_standoff = 25,ticktext=days,tickvals=days,)
+   fig.update_yaxes(title_text = "sells",title_font = {"size": 20},title_standoff = 25)
    st.plotly_chart(fig, config = {'scrollZoom': False})            

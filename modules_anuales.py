@@ -59,7 +59,7 @@ def graph_years(responses,df):
             df_toexcel = pd.concat([df_toexcel,df_ciudad_year])
             fig.add_trace(go.Scatter(x=years,y=sales,name=str(ciudad),mode = "lines+markers",marker=dict(size=8)))
          df_toexcel = df_toexcel[['ciudad','year','sales']].sort_values(["ciudad","year"])
-         downloadExcel(df_toexcel.rename(columns = {"sales":"ventas","year":"año"}),"resultados_por_año_ciudad.xlsx")
+         downloadExcel(df_toexcel,"resultados_por_año_ciudad.xlsx")
 
       else:
          df_toexcel = pd.DataFrame(columns = ['year','sales','ciudad','producto'])
@@ -75,7 +75,7 @@ def graph_years(responses,df):
             fig.add_trace(go.Scatter(x=years,y=sales,name=ciudad + " " +str(producto),mode = "lines+markers",marker=dict(size=8)))
          df_toexcel = df_toexcel[["ciudad",'producto','year','sales']]
          df_toexcel = df_toexcel.sort_values(["ciudad","producto","year"])
-         downloadExcel(df_toexcel.rename(columns = {"sales":"ventas","year":"año"}),"resultados_por_año_ciudad_producto.xlsx")                                         
+         downloadExcel(df_toexcel,"resultados_por_año_ciudad_producto.xlsx")                                         
 
       fig.update_xaxes(title_text = "year",title_font = {"size": 20},
         title_standoff = 25,ticktext=years,tickvals=years,)
@@ -89,7 +89,7 @@ def graph_years(responses,df):
          sales = df_year.sales.tolist()
          fig = go.Figure()
          fig.add_trace(go.Scatter(x=years,y=sales,mode = "lines+markers",marker=dict(size=8)))
-         downloadExcel(df_year.rename(columns = {"sales":"ventas","year":"año"}),"resultados_por_año.xlsx")
+         downloadExcel(df_year,"resultados_por_año.xlsx")
 
 
       elif por_tipo_de_productos == False:
@@ -105,7 +105,7 @@ def graph_years(responses,df):
             df_store_year['tienda'] = store
             df_toexcel = pd.concat([df_toexcel,df_store_year])
          df_toexcel = df_toexcel[['tienda','year','sales']].sort_values(["tienda","year"])
-         downloadExcel(df_toexcel.rename(columns = {"sales":"ventas","year":"año"}),"resultados_por_año_tienda.xlsx")
+         downloadExcel(df_toexcel.rename(columns={"tienda":"store"}),"resultados_por_año_tienda.xlsx")
       elif por_tiendas == False:
          df_toexcel = pd.DataFrame(columns = ['year','sales','producto'])
          fig = go.Figure()
@@ -117,7 +117,7 @@ def graph_years(responses,df):
             df_toexcel = pd.concat([df_toexcel,df_producto_year])
             fig.add_trace(go.Scatter(x=years,y=sales,name=str(producto),mode = "lines+markers",marker=dict(size=8)))
          df_toexcel = df_toexcel[['producto','year','sales']].sort_values(["producto","year"])
-         downloadExcel(df_toexcel.rename(columns = {"sales":"ventas","year":"año"}),"resultados_por_año_producto.xlsx")       
+         downloadExcel(df_toexcel.rename(columns={"producto":"product"}),"resultados_por_año_producto.xlsx")       
       else:
          df_toexcel = pd.DataFrame(columns = ['year','sales','tienda','producto'])
          fig = go.Figure()
@@ -133,7 +133,7 @@ def graph_years(responses,df):
             fig.add_trace(go.Scatter(x=years,y=sales,name=tienda + " " +str(producto),mode = "lines+markers",marker=dict(size=8)))
          df_toexcel = df_toexcel[["tienda",'producto','year','sales']]
          df_toexcel = df_toexcel.sort_values(["tienda","producto","year"])
-         downloadExcel(df_toexcel.rename(columns = {"sales":"ventas","year":"año"}),"resultados_por_año_tienda_producto.xlsx")       
+         downloadExcel(df_toexcel.rename(columns={"tienda":"store","producto":"product"}),"resultados_por_año_tienda_producto.xlsx")       
       fig.update_xaxes(title_text = "year",title_font = {"size": 20},
         title_standoff = 25,ticktext=years,tickvals=years,)
       fig.update_yaxes(title_text = "sells",title_font = {"size": 20},
