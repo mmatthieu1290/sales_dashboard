@@ -79,7 +79,7 @@ def graph_years(responses,df):
 
       fig.update_xaxes(title_text = "year",title_font = {"size": 20},
         title_standoff = 25,ticktext=years,tickvals=years,)
-      fig.update_yaxes(title_text = "sells",title_font = {"size": 20},
+      fig.update_yaxes(title_text = "sales",title_font = {"size": 20},
         title_standoff = 25)
       st.plotly_chart(fig, config = {'scrollZoom': False}) 
 
@@ -136,7 +136,7 @@ def graph_years(responses,df):
          downloadExcel(df_toexcel.rename(columns={"tienda":"store","producto":"product"}),"results_by_year_store_product.xlsx")       
       fig.update_xaxes(title_text = "year",title_font = {"size": 20},
         title_standoff = 25,ticktext=years,tickvals=years,)
-      fig.update_yaxes(title_text = "sells",title_font = {"size": 20},
+      fig.update_yaxes(title_text = "sales",title_font = {"size": 20},
         title_standoff = 25)
       st.plotly_chart(fig, config = {'scrollZoom': False})   
 

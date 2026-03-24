@@ -156,7 +156,7 @@ def graph_monthly(responses,df_years):
                     "results_per_month_store_product.xlsx") 
    fig.update_xaxes(title_text = "month",title_font = {"size": 20},
         title_standoff = 25,ticktext=months,tickvals=months,)
-   fig.update_yaxes(title_text = "sells",title_font = {"size": 20},
+   fig.update_yaxes(title_text = "sales",title_font = {"size": 20},
         title_standoff = 25)
    st.plotly_chart(fig, config = {'scrollZoom': False})                           
 
@@ -339,6 +339,6 @@ def graph_monthly_by_year(responses,df):
 
    fig.update_xaxes(title_text = "month",title_font = {"size": 20},
         title_standoff = 25,ticktext=months,tickvals=months,)
-   fig.update_yaxes(title_text = "sells",title_font = {"size": 20},
+   fig.update_yaxes(title_text = "sales",title_font = {"size": 20},
         title_standoff = 25)
    st.plotly_chart(fig, config = {'scrollZoom': False})               
