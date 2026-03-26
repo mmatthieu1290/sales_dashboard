@@ -10,7 +10,7 @@ from time_series import TimeSeriesTiendas,TimeSeriesProductos,TimeSeriesCiudades
 
 st.title("Sales Dashboard")
 
-choice = st.sidebar.selectbox("Qué quieres ver?",\
+choice = st.sidebar.selectbox("What do you want to see?",\
     ["Global information", "Annual sales", "Monthly sales"\
         ,"Daily Sales", "KPIs", "Predictions by Store", "Predictions by Product", "Predictions by City"])
 
