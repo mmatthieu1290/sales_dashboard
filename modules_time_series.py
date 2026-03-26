@@ -75,11 +75,11 @@ def PredictAndGraph(sum_sales_,text_title):
 
       y_past_plot = y_past_plot.loc[[(date.to_timestamp().date() >= date_range_past) for date in y_past_plot.index]]
       fig.add_trace(go.Scatter(x = y_past_plot.index.astype(str),y = y_past_plot.astype(float).values,\
-                         mode = "lines+markers",marker=dict(size=8),name="Observado"))
+                         mode = "lines+markers",marker=dict(size=8),name="Observed"))
       #fig.add_trace(go.Scatter(x=y_pred_future_plot.index.astype(str),y = y_pred_future_plot.astype(float).values,mode = "lines+markers",marker=dict(size=8),\
       #       name="Prediccion"))
       fig.add_trace(go.Scatter(x=y_pred_future_plot.index.astype(str),y = y_pred_future_plot.astype(float).values,mode = "lines+markers",marker=dict(size=8),\
-             name="Prediccion"))      
+             name="Prediction"))      
       fig.update_layout(
       title=dict(
         text=text_title
