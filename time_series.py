@@ -14,12 +14,12 @@ def TimeSeriesTiendas(connexion):
    store_sales = pd.read_sql_query('select * from cities_store' \
     , con = connexion)
 
-   tiendas = [f"Tienda {nb_store}" for nb_store in store_sales.city_store.tolist()]
-   choice_tienda = st.selectbox("Elige la tienda",\
-    ["Todas las tiendas"] + tiendas)
+   tiendas = [f"Store {nb_store}" for nb_store in store_sales.city_store.tolist()]
+   choice_tienda = st.selectbox("Choose the store",\
+    ["All stores"] + tiendas)
 
    
-   if choice_tienda != "Todas las tiendas":
+   if choice_tienda != "All stores":
 
 
       sum_sales_ = pd.read_sql_query('select * from sales_by_date_and_store_and_promotion',
@@ -40,11 +40,11 @@ def TimeSeriesProductos(connexion):
 
    productos = family_sales.family.tolist()
 
-   choice_producto = st.selectbox("Elige el producto",\
-    ["Todos los productos"] + productos)
+   choice_producto = st.selectbox("Choose the product",\
+    ["All products"] + productos)
 
    
-   if choice_producto != "Todos los productos":
+   if choice_producto != "All products":
       sum_sales_ = pd.read_sql_query('select * from sales_by_date_and_family_and_promotion',
                               dtype={'family': 'str','onpromotion' : 'int32',
       'sales': 'float32',},parse_dates=['date'],con=connexion).set_index("family").loc[choice_producto]
@@ -61,11 +61,11 @@ def TimeSeriesCiudades(connexion):
    ciudades = pd.read_sql_query('select * from cities' \
     , con = connexion)   
    ciudades = ciudades.city.tolist()
-   choice_ciudad = st.selectbox("Elige la ciudad",\
-    ["Todas las ciudades"] + ciudades)
+   choice_ciudad = st.selectbox("Choose the city",\
+    ["All cities"] + ciudades)
 
    
-   if choice_ciudad != "Todas las ciudades":
+   if choice_ciudad != "All cities":
       sum_sales_ = pd.read_sql_query('select * from sales_by_date_and_cities_and_promotion',
                               dtype={'city': 'str','onpromotion' : 'int32',
       'sales': 'float32',},parse_dates=['date'],con=connexion).set_index("city").loc[choice_ciudad]      

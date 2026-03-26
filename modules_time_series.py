@@ -9,7 +9,7 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 def PredictAndGraph(sum_sales_,text_title):
    
-   dict_dias = {1 : "Lunes", 2 : "Martes" , 3 : "Miercoles" , 4 : "Jueves" , 5 : "Viernes" , 6 : "Sabado" , 7 : "Domingo"}
+   dict_dias = {1 : "Monday", 2 : "Tuesday", 3 : "Wednesday", 4 : "Thursday", 5 : "Friday", 6 : "Saturday", 7 : "Sunday"}
 
    sum_sales_['date'] = sum_sales_.date.dt.to_period('D')
    min_date_considerated = sum_sales_.date.max() - timedelta(days = 365)
@@ -38,7 +38,7 @@ def PredictAndGraph(sum_sales_,text_title):
    sarimax_fit = sarimax_model.fit(disp=False)
 
    date_range_past = st.date_input(
-    "Selecciona desde que fecha quieres observar las ventas pasadas",
+    "Select the date from which you want to view past sales",
     value=y_past.index.max().to_timestamp()  - timedelta(days = 30),
     max_value = y_past.index.max().to_timestamp(), 
     min_value = y_past_plot.index.min().to_timestamp()
@@ -46,7 +46,7 @@ def PredictAndGraph(sum_sales_,text_title):
    
 
    date_range_future = st.date_input(
-    "Selecciona un intervalo de fechas para la prediccion futura",
+    "Select a date range for the future prediction",
     value=(y_past.index.max().to_timestamp() + timedelta(days = 1), y_past.index.max().to_timestamp() + timedelta(days = 30)),
     min_value = y_past.index.max().to_timestamp() + timedelta(days = 1)
 )
@@ -84,11 +84,11 @@ def PredictAndGraph(sum_sales_,text_title):
       title=dict(
         text=text_title
     ) ,
-      xaxis_title="Fecha",
-      yaxis_title="Ventas")
+      xaxis_title="Date",
+      yaxis_title="Sells")
       st.plotly_chart(fig, config = {'scrollZoom': False})        
       y_pred_future_plot = y_pred_future_plot.to_frame()
-      y_pred_future_plot.columns = ["Ventas"]
-      y_pred_future_plot["Dia"] = [date.day_of_week + 1 for date in y_pred_future_plot.index]
-      y_pred_future_plot["Dia"] = y_pred_future_plot["Dia"].replace(dict_dias)
+      y_pred_future_plot.columns = ["Sells"]
+      y_pred_future_plot["Day"] = [date.day_of_week + 1 for date in y_pred_future_plot.index]
+      y_pred_future_plot["Day"] = y_pred_future_plot["Day"].replace(dict_dias)
       st.dataframe(y_pred_future_plot)                    
