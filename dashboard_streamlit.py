@@ -8,7 +8,7 @@ from modules_diarias import graph_daily,graph_daily_by_year,graph_daily_by_month
 from KPIs import KPIs
 from time_series import TimeSeriesTiendas,TimeSeriesProductos,TimeSeriesCiudades
 
-st.title("Dashboard de Ventas")
+st.title("Sales Dashboard")
 
 choice = st.sidebar.selectbox("Qué quieres ver?",\
     ["Global information", "Annual sales", "Monthly sales"\
