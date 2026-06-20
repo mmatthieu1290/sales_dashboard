@@ -2,7 +2,7 @@
 
 A modular, interactive sales analytics application built with Streamlit. Explore sales data at annual, monthly, and daily granularity, track KPI growth metrics, and generate time-series forecasts by store, product, or city — all from a single interface backed by SQLite.
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://selldashboard-rnpp7zpkvfdrkslnahjymy.streamlit.app/)
+[Streamlit APP](https://selldashboard-rnpp7zpkvfdrkslnagjymy.streamlit.app/)
 
 ---
 
